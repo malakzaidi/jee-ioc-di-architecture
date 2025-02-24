@@ -5,7 +5,8 @@ import dao.IDao;
 
 @Component("metier")
 public class MetierImpl implements IMetier {
-    //Couplage faible
+
+    @Autowired
     private IDao dao=null ;
     // Constructeur sans paramètres
     public MetierImpl() {
