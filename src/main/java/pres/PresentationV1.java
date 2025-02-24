@@ -6,8 +6,8 @@ import metier.MetierImpl;
 public class PresentationV1 {
     public static void main(String[] args) {
         DaoImpl dao = new DaoImpl();
-        MetierImpl m = new MetierImpl(dao);
-        m.setDao(dao);//using the setter to do the injection
-        System.out.println(m.calcul());
+        MetierImpl m = new MetierImpl(dao);//Injection des dépenedances par le constructeur
+        //m.setDao(dao);//Utilisation du setter pour effectuer l'injection
+        System.out.println("res"+m.calcul());
     }
 }

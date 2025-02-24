@@ -6,6 +6,11 @@ import dao.IDao;
 public class MetierImpl implements IMetier {
     //Couplage faible
     private IDao dao=null ;
+    // Constructeur sans paramètres
+    public MetierImpl() {
+
+    }
+    //Constructeur avec paramètres
     public MetierImpl(IDao dao) {
         this.dao = dao;
     }
