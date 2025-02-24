@@ -1,6 +1,8 @@
 package metier;
 
 import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import dao.IDao;
 
 @Component("metier")
