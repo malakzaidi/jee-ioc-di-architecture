@@ -11,246 +11,190 @@ This repository explores **Inversion of Control (IoC)** and **Dependency Injecti
 
 🔗 **Perfect for:** JEE developers, architects, and students looking to deepen their understanding of modern software design patterns in enterprise applications.  
 
-Below is a detailed and professional `README.md` file for your project. It explains the steps, concepts, and implementation details for creating the interfaces, their implementations, and dependency injection using static, dynamic, and Spring Framework approaches.
+# IoC and DI Architecture in JEE
 
----
+![Architecture Banner](https://via.placeholder.com/800x200/0077B6/FFFFFF?text=IoC+and+DI+Architecture+in+JEE)
 
-# JEE IOC/DI Architecture Example
+This project illustrates the application of **Inversion of Control (IoC)** and **Dependency Injection (DI)** principles in a Java EE (JEE) application. The objective is to demonstrate how these concepts can be used to create a modular, maintainable, and testable architecture.
 
-This project demonstrates the implementation of a simple Java application using Inversion of Control (IoC) and Dependency Injection (DI) principles. It includes the creation of interfaces, their implementations, and different ways to inject dependencies.
+## 📋 Table of Contents
 
-## Table of Contents
-1. [Project Overview](#project-overview)
-2. [Step 1: Create the `IDao` Interface](#step-1-create-the-idao-interface)
-3. [Step 2: Implement the `IDao` Interface](#step-2-implement-the-idao-interface)
-4. [Step 3: Create the `IMetier` Interface](#step-3-create-the-imetier-interface)
-5. [Step 4: Implement the `IMetier` Interface with Loose Coupling](#step-4-implement-the-imetier-interface-with-loose-coupling)
-6. [Step 5: Dependency Injection](#step-5-dependency-injection)
-   - [a. Static Instantiation](#a-static-instantiation)
-   - [b. Dynamic Instantiation](#b-dynamic-instantiation)
-   - [c. Using Spring Framework](#c-using-spring-framework)
-     - [XML Configuration](#xml-configuration)
-     - [Annotations Configuration](#annotations-configuration)
-7. [How to Run the Project](#how-to-run-the-project)
-8. [Conclusion](#conclusion)
+- [📌 Introduction](#introduction)
+- [🏗️ Project Structure](#project-structure)
+- [💡 Key Concepts](#key-concepts)
+  - [Inversion of Control (IoC)](#inversion-of-control-ioc)
+  - [Dependency Injection (DI)](#dependency-injection-di)
+- [🛠️ Development Steps](#development-steps)
+  1. [Creating the `IDao` Interface](#creating-the-idao-interface)
+  2. [Implementing `IDao`](#implementing-idao)
+  3. [Creating the `IMetier` Interface](#creating-the-imetier-interface)
+  4. [Implementing `IMetier` with Loose Coupling](#implementing-imetier-with-loose-coupling)
+  5. [Dependency Injection](#dependency-injection)
+     - [Using Static Instantiation](#using-static-instantiation)
+     - [Using Dynamic Instantiation](#using-dynamic-instantiation)
+     - [Using Spring Framework](#using-spring-framework)
+       - [XML Version](#xml-version)
+       - [Annotations Version](#annotations-version)
+- [🏁 Conclusion](#conclusion)
 
----
+## 📌 Introduction
 
-## Project Overview
+In modern software development, it's essential to reduce coupling between components to improve code flexibility and maintainability. The principles of Inversion of Control (IoC) and Dependency Injection (DI) are key techniques for achieving this goal. This project demonstrates their application in a JEE application.
 
-This project illustrates the use of Inversion of Control (IoC) and Dependency Injection (DI) in Java. It involves:
-- Creating interfaces (`IDao` and `IMetier`).
-- Implementing these interfaces.
-- Injecting dependencies using different methods: static instantiation, dynamic instantiation, and Spring Framework (both XML and annotations).
+## 🏗️ Project Structure
 
----
+The project is organized into several packages:
 
-## Step 1: Create the `IDao` Interface
+| Package | Description |
+|---------|-------------|
+| `dao` | Contains data access objects |
+| `service` | Contains business logic |
+| `controller` | Handles HTTP requests and responses |
+| `config` | Contains configuration classes and files for IoC and DI |
 
-The `IDao` interface defines a method `getData()` that retrieves data from a data source (e.g., a database, file, or API).
+## 💡 Key Concepts
+
+### Inversion of Control (IoC)
+
+> IoC is a design principle where control over object creation and dependency management is transferred to a container or framework, enabling more flexible and decoupled code.
+
+### Dependency Injection (DI)
+
+> DI is a specific form of IoC where dependencies are provided to a class rather than the class creating them itself. This can be achieved through constructor injection, setter injection, or field injection.
+
+## 🛠️ Development Steps
+
+### 1. Creating the `IDao` Interface
+
+Define an `IDao` interface with a `getData()` method to retrieve data.
 
 ```java
 public interface IDao {
-    double getData();
+    Data getData();
 }
 ```
 
----
+### 2. Implementing `IDao`
 
-## Step 2: Implement the `IDao` Interface
-
-We create a concrete implementation of the `IDao` interface. For simplicity, this implementation returns a hardcoded value.
+Create a `DaoImpl` class that implements the `IDao` interface and provides the concrete logic for retrieving data.
 
 ```java
 public class DaoImpl implements IDao {
     @Override
-    public double getData() {
-        // Simulate fetching data from a database
-        return 10.0;
+    public Data getData() {
+        // Logic to retrieve data
+        return new Data();
     }
 }
 ```
 
----
+### 3. Creating the `IMetier` Interface
 
-## Step 3: Create the `IMetier` Interface
-
-The `IMetier` interface defines a method `calcul()` that performs some business logic using data provided by the `IDao` interface.
+Define an `IMetier` interface with a `calcul()` method to perform business operations.
 
 ```java
 public interface IMetier {
-    double calcul();
+    Result calcul();
 }
 ```
 
----
+### 4. Implementing `IMetier` with Loose Coupling
 
-## Step 4: Implement the `IMetier` Interface with Loose Coupling
-
-We implement the `IMetier` interface using loose coupling. This means the `MetierImpl` class depends on the `IDao` interface, not a specific implementation.
+Create a `MetierImpl` class that implements `IMetier` and uses the `IDao` interface to perform business operations, ensuring loose coupling.
 
 ```java
 public class MetierImpl implements IMetier {
     private IDao dao;
 
-    // Constructor for dependency injection
     public MetierImpl(IDao dao) {
         this.dao = dao;
     }
 
     @Override
-    public double calcul() {
-        double data = dao.getData();
-        return data * 2; // Example business logic
+    public Result calcul() {
+        Data data = dao.getData();
+        // Business logic using the data
+        return new Result();
     }
 }
 ```
 
----
+### 5. Dependency Injection
 
-## Step 5: Dependency Injection
+#### a. Using Static Instantiation
 
-Dependency Injection (DI) is a design pattern that allows objects to receive their dependencies from an external source rather than creating them internally. Below are three ways to achieve DI in this project.
-
-### a. Static Instantiation
-
-In this approach, dependencies are instantiated manually in the code.
+Manually create and provide the necessary dependencies.
 
 ```java
-public class StaticInjection {
+public class Application {
     public static void main(String[] args) {
-        IDao dao = new DaoImpl(); // Instantiate dependency
-        IMetier metier = new MetierImpl(dao); // Inject dependency
-        System.out.println("Result: " + metier.calcul());
+        IDao dao = new DaoImpl();
+        IMetier metier = new MetierImpl(dao);
+        // Use metier
     }
 }
 ```
 
-### b. Dynamic Instantiation
+#### b. Using Dynamic Instantiation
 
-In this approach, dependencies are instantiated dynamically at runtime using a configuration file or user input.
+Use a mechanism to provide dependencies at runtime, for example, using reflection.
 
 ```java
-public class DynamicInjection {
+public class Application {
     public static void main(String[] args) throws Exception {
-        // Load class name from a configuration file or user input
         String daoClassName = "com.example.DaoImpl";
-        Class<?> daoClass = Class.forName(daoClassName);
-        IDao dao = (IDao) daoClass.getDeclaredConstructor().newInstance();
-
-        IMetier metier = new MetierImpl(dao); // Inject dependency
-        System.out.println("Result: " + metier.calcul());
+        IDao dao = (IDao) Class.forName(daoClassName).getDeclaredConstructor().newInstance();
+        IMetier metier = new MetierImpl(dao);
+        // Use metier
     }
 }
 ```
 
-### c. Using Spring Framework
+#### c. Using Spring Framework
 
-The Spring Framework provides built-in support for dependency injection. Below are two ways to configure Spring: XML and annotations.
+**XML Version**
 
-#### XML Configuration
-
-1. Add Spring dependencies to your `pom.xml` (for Maven) or `build.gradle` (for Gradle).
-2. Create a Spring configuration file (`applicationContext.xml`):
+Configure dependencies in an XML file.
 
 ```xml
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
            http://www.springframework.org/schema/beans/spring-beans.xsd">
-
-    <bean id="dao" class="com.example.DaoImpl" />
+    <bean id="dao" class="com.example.DaoImpl"/>
     <bean id="metier" class="com.example.MetierImpl">
-        <constructor-arg ref="dao" />
+        <constructor-arg ref="dao"/>
     </bean>
 </beans>
 ```
 
-3. Use the Spring context to inject dependencies:
+**Annotations Version**
+
+Use Spring annotations for configuration.
 
 ```java
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-public class SpringXmlInjection {
-    public static void main(String[] args) {
-        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-        IMetier metier = (IMetier) context.getBean("metier");
-        System.out.println("Result: " + metier.calcul());
+@Configuration
+public class AppConfig {
+    @Bean
+    public IDao dao() {
+        return new DaoImpl();
+    }
+    
+    @Bean
+    public IMetier metier(IDao dao) {
+        return new MetierImpl(dao);
     }
 }
 ```
 
-#### Annotations Configuration
+## 🏁 Conclusion
 
-1. Enable component scanning in the Spring configuration file (`applicationContext.xml`):
+Implementing IoC and DI principles in JEE applications leads to several benefits:
 
-```xml
-<context:component-scan base-package="com.example" />
-```
+- **Reduced coupling**: Components depend on abstractions rather than concrete implementations
+- **Improved testability**: Dependencies can be easily mocked for unit testing
+- **Enhanced maintainability**: Changes to implementations don't affect dependent components
+- **Greater flexibility**: Different implementations can be swapped without modifying client code
 
-2. Annotate the classes with `@Component` and `@Autowired`:
+This architecture provides a solid foundation for building scalable, maintainable JEE applications.
 
-```java
-import org.springframework.stereotype.Component;
-import org.springframework.beans.factory.annotation.Autowired;
-
-@Component
-public class DaoImpl implements IDao {
-    @Override
-    public double getData() {
-        return 10.0;
-    }
-}
-
-@Component
-public class MetierImpl implements IMetier {
-    private IDao dao;
-
-    @Autowired
-    public MetierImpl(IDao dao) {
-        this.dao = dao;
-    }
-
-    @Override
-    public double calcul() {
-        double data = dao.getData();
-        return data * 2;
-    }
-}
-```
-
-3. Use the Spring context to inject dependencies:
-
-```java
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-public class SpringAnnotationsInjection {
-    public static void main(String[] args) {
-        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-        IMetier metier = (IMetier) context.getBean("metierImpl");
-        System.out.println("Result: " + metier.calcul());
-    }
-}
-```
-
----
-
-## How to Run the Project
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/malakzaidi/jee-ioc-di-architecture.git
-   ```
-2. Navigate to the project directory:
-   ```bash
-   cd jee-ioc-di-architecture
-   ```
-3. Compile and run the desired class (e.g., `StaticInjection`, `DynamicInjection`, `SpringXmlInjection`, or `SpringAnnotationsInjection`).
-
----
-
-## Conclusion
-
-This project demonstrates the principles of Inversion of Control (IoC) and Dependency Injection (DI) in Java. It shows how to create loosely coupled components and inject dependencies using static instantiation, dynamic instantiation, and the Spring Framework (both XML and annotations). These techniques are essential for building scalable and maintainable applications.
