@@ -13,8 +13,6 @@ This repository explores **Inversion of Control (IoC)** and **Dependency Injecti
 
 # IoC and DI Architecture in JEE
 
-![Architecture Banner](https://via.placeholder.com/800x200/0077B6/FFFFFF?text=IoC+and+DI+Architecture+in+JEE)
-
 This project illustrates the application of **Inversion of Control (IoC)** and **Dependency Injection (DI)** principles in a Java EE (JEE) application. The objective is to demonstrate how these concepts can be used to create a modular, maintainable, and testable architecture.
 
 ## 📋 Table of Contents
@@ -197,4 +195,3 @@ Implementing IoC and DI principles in JEE applications leads to several benefits
 - **Greater flexibility**: Different implementations can be swapped without modifying client code
 
 This architecture provides a solid foundation for building scalable, maintainable JEE applications.
-
