@@ -5,7 +5,10 @@ import dao.IDao;
 
 public class MetierImpl implements IMetier {
     //Couplage faible
-    private IDao dao ;
+    private IDao dao=null ;
+    public MetierImpl(IDao dao) {
+        this.dao = dao;
+    }
     @Override
     public double calcul() {
         double x = dao.getData();
