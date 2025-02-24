@@ -2,6 +2,8 @@ package metier;
 
 import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+
 
 import dao.IDao;
 
@@ -15,7 +17,7 @@ public class MetierImpl implements IMetier {
 
     }
     //Constructeur avec paramètres
-    public MetierImpl(IDao dao) {
+    public MetierImpl(@Qualifier ("dao2") IDao dao) {
         this.dao = dao;
     }
     @Override
