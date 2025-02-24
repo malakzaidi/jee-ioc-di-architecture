@@ -1,8 +1,9 @@
 package metier;
 
-
+import org.springframework.stereotype.Component;
 import dao.IDao;
 
+@Component("metier")
 public class MetierImpl implements IMetier {
     //Couplage faible
     private IDao dao=null ;
