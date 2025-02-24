@@ -11,6 +11,7 @@ public class PresentationV2 {
             String daoClassname = scanner.nextLine();
             Class cDao = Class.forName(daoClassname);
             IDao dao = (IDao) cDao.getConstructor().newInstance();
+            System.out.println(dao.getData());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
